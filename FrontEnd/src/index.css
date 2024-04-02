@@ -1,0 +1,62 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* *{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.LeftBar{
+  width: 20%;
+  height: 100vh;
+  background-color: rgba(42, 49, 50, 0.553);
+}
+
+.LeftTextDiv{
+  padding: 10px;
+  width: 100%;
+  background-color: lightblue;
+}
+.LeftTextDiv:hover{
+background-color: rgb(228, 185, 252);
+}
+.LeftBarA{
+  text-align : center;
+  color: white;
+}
+
+
+
+
+.loader-container {
+  width: 100px;
+  height: 100px;
+  position: relative;
+  margin: 100px auto;
+} */
+
+/* Styles for the loader 
+.loader {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #ccc;
+  border-top-color: #333;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+} */
