@@ -9,7 +9,7 @@ function MyModal(props){
         
       <div className="modalContent">
         <div >
-              <p> {props.text_for_pop}</p>
+              <p> Are you sure you wanna delete</p>
               <button className="border border-gray-300 bg-white rounded-md shadow-md p-4 hover:cursor-pointer" onClick={()=> {
                 props.onClick(true,props.id)
               }}>Yes</button>

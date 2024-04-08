@@ -2,83 +2,89 @@ import React, { useState, useEffect, useCallback } from "react";
 import Model from 'react-modal'
 import TableContent from "./TableContent";
 import AddUser from "./AddUser";
+import useFetch from "./useFetch";
+import AlertComponent from "./App/AlertComponent";
+import AlertComponentError from "./App/AlertComponentError";
 
 
-async function fetchData() {
-  const url = 'http://localhost:3001/api';
-  try {
-    const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error('Network response was noyt ok');
-    }
-    const data = await response.json();
 
 
-    return data;
-  } catch (error) {
-    return undefined;
 
-    // Return an empty array in case of an error
-  }
-}
 
 function Table() {
+  
 
   const [update, setUpdate] = useState(false)
-  const [jsonData, setJsonData] = useState(undefined)
-
-  useEffect(() => {
-    fetchData().then(fetchedData => {
-
-      setJsonData(fetchedData);
-    });
-  }, [update]);
-
+  
+  const [alertSuccess , setAlertSuccess ] = useState(false)
+  const [alertError, setAlertError] = useState(false)
  
+  const {data,loading,error} = useFetch('http://localhost:3001/api',update)
 
-  const UpDatet = useCallback(() => {
+  const UpDatet = useCallback((c) => {
+    if(c){
+      console.log('is working add')
+      setUpdate(!update)
+      setAlertSuccess (true)
+    }else{
 
-    setUpdate(!update)
-  }, [jsonData])
+      setUpdate(!update)
+      setAlertError (true)
+
+    }
+   
+  }, [data])
 
 
 
-  return (
-    <div className="Table">
-      <AddUser onCeck={UpDatet}/>
-      {jsonData ? (
-        <table>
-          <thead>
-          </thead>
-          <tbody>
+
+
+
+
+  if(loading){
+    return <h1>Loading...</h1>
+  }
+  if(data){
+        
+        
+        
+        return (
+          <>
+            <div className=""> 
+              {alertSuccess  ? <AlertComponent/> : null}
+              {alertError ? <AlertComponentError/> : null}
+            </div>
+          
+          <div className="Table">
+            <AddUser onCeck={UpDatet}/>
+              <table>
+                <thead>
+                </thead>
+                <tbody>
             
-            
-            
+                  {data.map(function (it, index) {
+                    return (
 
-            {jsonData.map(function (it, index) {
-              return (
+                      <TableContent onCeck={UpDatet} key={index} item={{
+                        
+                        id: it._id,
+                        name: it.name,
+                        surname: it.surname,
+                        mail: it.mail,
+                        phonenumber: it.phonenumber,
+                      }} />
+                      
+                    )
+                  })
+                  
+                }</tbody>
+              </table>
 
-                <TableContent onCeck={UpDatet} key={index} item={{
-
-                  id: it._id,
-                  name: it.name,
-                  surname: it.surname,
-                  mail: it.mail,
-                  phonenumber: it.phonenumber,
-                }} />
-
-              )
-            })
-
-            }</tbody>
-        </table>
-
-      ) :
-        <div className="loader-container">
-          <div className="loader"></div>
-        </div>}
-    </div>
-  );
-
+                   
+          </div>
+                </>
+        );
+        
+      }
 }
 export default Table

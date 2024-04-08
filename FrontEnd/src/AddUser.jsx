@@ -1,13 +1,21 @@
 import React from "react";
 import MyAddModal from "./MyAddModal";
+import axios from 'axios'
 
 function AddUser(props){
     const [visible,setvisible] = React.useState(false)
 
     function AddUserFetch(requesOptions){
-            fetch('http://localhost:3001/api/add', requesOptions)
+
+            axios.post('http://localhost:3001/api/add',requesOptions)
+            .then(()=>{
+                console.log('axios add is work ')
+               
+            })
+            props.onCeck(true)
             
-            props.onCeck()
+            
+            
                     
             
     }
@@ -23,7 +31,7 @@ function AddUser(props){
                     body: JSON.stringify(obj)
                 }
                 
-                AddUserFetch(requesOptions)
+                AddUserFetch(obj)
                 
             }
                 

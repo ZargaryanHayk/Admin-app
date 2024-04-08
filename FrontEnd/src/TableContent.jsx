@@ -1,18 +1,20 @@
 import React, { useCallback } from "react";
 import MyModal from "./MyModal.jsx";
 import EditUseForm from "./EditUserForm.jsx";
+import axios from 'axios'
 
 
 
 export default function TableContent(props){
 
-   function delFetch(requesOptions){
-  
+   function delFetch(id){
     try {
-         fetch('http://localhost:3001/api/delet',  requesOptions)
+        axios.delete(`http://localhost:3001/api/user/${id}`)
          .then(r => {
-          console.log(r.status)
-          props.onCeck()
+          props.onCeck(true)
+         })
+         .catch((e)=>{
+          props.onCeck(false)
          })
      
     } catch (error) {
@@ -22,13 +24,14 @@ export default function TableContent(props){
     }
   
   }
-  function EditFetch(requesOptions){
-
-    fetch('http://localhost:3001/api/edit',  requesOptions)
+  function EditFetch(obj){
+    axios.patch(`http://localhost:3001/api/user/${obj.id}`,  obj)
     .then(r => {
           console.log(r.status)
-          props.onCeck()
-    })
+          props.onCeck(true)
+    }).catch((e)=>{
+      props.onCeck(false)
+     })
 
   }
 
@@ -37,21 +40,7 @@ export default function TableContent(props){
 
     const DeleteReq = useCallback((del,id) =>{
 
-        if(del){
-          const sendJson = {"id":id}
-          const requesOptions =  {
-          method: "DELETE",
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(sendJson)
-        }
-        delFetch(requesOptions)
-
-        
-      
-        
-      }
+      if(del){delFetch(id)}
       setvisible(!visibleDelete)
         
         
@@ -60,16 +49,8 @@ export default function TableContent(props){
 const Edit = useCallback( (obj)=>{
   if(obj){
 
-    let requesOptions = {
-      method: "PATCH",
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(obj)
-    }
-    // mancela fily kardaly arvi
-    
-  EditFetch(requesOptions)
+       
+  EditFetch(obj)
    
   }
     
@@ -87,7 +68,7 @@ const Edit = useCallback( (obj)=>{
             <td className="px-2 py-4">{props.item.mail}</td>
             <td className="px-2 py-4">{props.item.phonenumber}</td>
             <td className="border border-gray-300 bg-white rounded-md shadow-md p-4 hover:cursor-pointer" onClick={()=>setvisible(true)} >Delete</td>
-            {visibleDelete &&  <MyModal onClick={DeleteReq}  id={props.item.id} text_for_pop='Are you sure you wanna delete'/>}
+            {visibleDelete &&  <MyModal onClick={DeleteReq}  id={props.item.id} />}
     
 
           <td className="border border-gray-300 bg-white rounded-md shadow-md p-4 hover:cursor-pointer"onClick={()=> setvisibleEdit(true)}  >Edit</td>

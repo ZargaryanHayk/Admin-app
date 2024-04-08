@@ -6,8 +6,8 @@ const PeopleController = require('C:/Users/haykz/OneDrive/Desktop/Fu_ll/adminka/
 console.log(PeopleController)
 router.get('/', PeopleController.lsitof)
 router.post('/add',PeopleController.store)
-router.patch('/edit',PeopleController.update)
-router.delete('/delet',PeopleController.destroy)
+router.patch('/user/:id',PeopleController.update)
+router.delete('/user/:id',PeopleController.destroy)
 router.get('/user/:id',PeopleController.user)
 
 
