@@ -4,7 +4,6 @@ import EditUseForm from "./EditUserForm.jsx";
 import axios from 'axios'
 
 
-
 export default function TableContent(props){
 
    function delFetch(id){
@@ -53,7 +52,6 @@ const Edit = useCallback( (obj)=>{
   EditFetch(obj)
    
   }
-    
   setvisibleEdit(!visibleEdit)
 
 

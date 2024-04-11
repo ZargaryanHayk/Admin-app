@@ -7,7 +7,7 @@ function AddUser(props){
 
     function AddUserFetch(requesOptions){
 
-            axios.post('http://localhost:3001/api/add',requesOptions)
+            axios.post(`http://localhost:3001/api/add`,requesOptions)
             .then(()=>{
                 console.log('axios add is work ')
                

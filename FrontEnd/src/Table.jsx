@@ -12,14 +12,13 @@ import AlertComponentError from "./App/AlertComponentError";
 
 
 function Table() {
-  
 
   const [update, setUpdate] = useState(false)
   
   const [alertSuccess , setAlertSuccess ] = useState(false)
   const [alertError, setAlertError] = useState(false)
  
-  const {data,loading,error} = useFetch('http://localhost:3001/api',update)
+  const {data,loading,error} = useFetch(`http://localhost:3001/api`,update)
 
   const UpDatet = useCallback((c) => {
     if(c){
@@ -50,10 +49,9 @@ function Table() {
         
         return (
           <>
-            <div className=""> 
-              {alertSuccess  ? <AlertComponent/> : null}
-              {alertError ? <AlertComponentError/> : null}
-            </div>
+          <div className="relative">
+
+            
           
           <div className="Table">
             <AddUser onCeck={UpDatet}/>
@@ -64,7 +62,7 @@ function Table() {
             
                   {data.map(function (it, index) {
                     return (
-
+                      
                       <TableContent onCeck={UpDatet} key={index} item={{
                         
                         id: it._id,
@@ -81,6 +79,11 @@ function Table() {
               </table>
 
                    
+                </div>
+                <div className="absolute buttom-0 right-0"> 
+              {alertSuccess  ? <AlertComponent/> : null}
+              {alertError ? <AlertComponentError/> : null}
+            </div>
           </div>
                 </>
         );

@@ -4,7 +4,6 @@ import Alert from '@mui/material/Alert';
 const AlertComponent = () => {
    
   const [hide, setHide] = useState(true)
-  console.log('stex')
   useEffect(()=>{
     setTimeout(()=>{
       setHide(false)
