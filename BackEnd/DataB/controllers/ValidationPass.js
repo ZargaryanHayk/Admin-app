@@ -1,4 +1,4 @@
-import User from '../models/Users.js';
+import Users from '../models/Users.js';
 
 const chacker = async (req, res, next) => {
     const data = req.params.name;
@@ -6,7 +6,7 @@ const chacker = async (req, res, next) => {
     console.log(data,pass,'------------')
     try {
         console.log('okay')
-        await User.find()
+        await Users.find()
         .then((d)=>{
             console.log(d,'test')
             res.status(200).send("Found");
@@ -28,7 +28,7 @@ const chacker = async (req, res, next) => {
 
 const destroy = async (req,res) =>{
     // console.log(req.params.id)
-    await User.deleteMany({})
+    await Users.deleteMany({})
         .then(r => {
            
             res.sendStatus(200);

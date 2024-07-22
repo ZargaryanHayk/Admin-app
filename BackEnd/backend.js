@@ -6,7 +6,21 @@ import bodyParser from 'body-parser';
 import userRout from './routes/userRout.js';
 import  ValditationRout from './routes/ValditationRout.js'
 
-let one  = mongoose.connect('mongodb://localhost:27017/test1db', { useNewUrlParser: true, useUnifiedTopology: true });
+
+const url =  'mongodb://localhost:27017'
+const dbName = 'demo'
+
+
+
+mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then((client) => {
+    const db = client.connection.db; 
+
+  })
+  .catch((err) => {
+    console.error('Failed to connect to the database:', err);
+  });
+
 
 
 
